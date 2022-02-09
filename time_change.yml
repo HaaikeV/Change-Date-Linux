@@ -4,11 +4,11 @@
     - name: Calculate fake time
       shell: date --date "{{ vardate }}"
       register: fake_date
-      run_once: True
-      changed_when: False
-    - name: Report
-      shell: debug msg="Will shift time to {{fake_date.stdout}}"
-      run_once: True
+    #  run_once: True
+    #  changed_when: False
+    #- name: Report
+    #  shell: debug msg="Will shift time to {{fake_date.stdout}}"
+    #  run_once: True
     #- name: Disable openntpd
     #  become: yes
     #  service: name=openntpd state=stopped
