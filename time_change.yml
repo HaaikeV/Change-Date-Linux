@@ -1,0 +1,24 @@
+- hosts: all
+  gather_facts: no
+  tasks:
+    - name: Calculate fake time
+      local_action: shell date --date "@$(( $(vardate +%s) - {{offset}}))"
+      register: fake_date
+      run_once: True
+      changed_when: False
+    - name: Report
+      local_action: debug msg="Will shift time to {{fake_date.stdout}}"
+      run_once: True
+    - name: Disable openntpd
+      become: yes
+      service: name=openntpd state=stopped
+    - name: Set fake time
+      become: yes
+      shell: date -s '{{fake_date.stdout}}'
+    - name: Checking time
+      shell: date
+      register: new_date
+    - name: report
+      debug: msg="New time is {{new_date.stdout}}"
+  vars:
+    offset: 36000
