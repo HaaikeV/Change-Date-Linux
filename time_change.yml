@@ -1,9 +1,9 @@
 - hosts: all
   gather_facts: no
   tasks:
-    - name: Calculate fake time
-      shell: date --date "{{ vardate }}"
-      register: fake_date
+    #- name: Calculate fake time
+    #  shell: date --date "{{ vardate }}"
+    #  register: fake_date
     #  run_once: True
     #  changed_when: False
     #- name: Report
@@ -14,7 +14,7 @@
     #  service: name=openntpd state=stopped
     - name: Set fake time
       become: yes
-      shell: date -s '{{fake_date.stdout}}'
+      shell: date +%Y%m%d -s '{{vardate}}'
     - name: Checking time
       shell: date
       register: new_date
