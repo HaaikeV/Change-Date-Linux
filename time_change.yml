@@ -2,7 +2,7 @@
   gather_facts: no
   tasks:
     - name: Calculate fake time
-      shell: shell date --date "{{ vardate }}"
+      shell: date --date "{{ vardate }}"
       register: fake_date
       run_once: True
       changed_when: False
